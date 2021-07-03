@@ -2,7 +2,7 @@ import random, time
 from threading import Timer
 
 running = True
-timeTrailRunning = False
+timeTrialRunning = False
 
 # opens highscore file defined by directory (parameter)
 # appends each value to a new table with scores and names
@@ -238,23 +238,23 @@ def quickfire():
     printHS(hs)
     saveHS("quickfireHS.txt", hs)
 
-def endTimeTrail():
-    global timeTrailRunning
-    timeTrailRunning = False
+def endTimeTrial():
+    global timeTrialRunning
+    timeTrialRunning = False
 
-# runs time trail mode
-def timetrail():
-    global timeTrailRunning
-    timeTrailRunning = True
-    hs = setupHSTable("timetrailHS.txt")
+# runs time trial mode
+def timetrial():
+    global timeTrialRunning
+    timeTrialRunning = True
+    hs = setupHSTable("timetrialHS.txt")
     printHS(hs)
     total = 0
     print("You have 3 minutes starting...")
     time.sleep(3)
     print("\n\nNOW!!\n\n")
-    t = Timer(60, endTimeTrail)
+    t = Timer(60, endTimeTrial)
     t.start()
-    while timeTrailRunning:
+    while timeTrialRunning:
         word = pickWord()
         length = len(word)
         curWord = ["_ "]
@@ -264,7 +264,7 @@ def timetrail():
         fails = 0
         for i in range(length - 1):
             curWord.append("_ ")
-        while correct < len(word) and timeTrailRunning:
+        while correct < len(word) and timeTrialRunning:
             print("\nYou have currently completed",total,"words.\n")
             display = ""
             for i in range(len(curWord)):
@@ -290,7 +290,7 @@ def timetrail():
             hs.pop()
             break
     printHS(hs)
-    saveHS("timetrailHS.txt", hs)
+    saveHS("timetrialHS.txt", hs)
 
 def Help():
     print("This is hangman, a game where you must guess a word but with only limited choices, as the more you get incorrect, the closer you get to being hanged.")
@@ -298,7 +298,7 @@ def Help():
     print("Original is simply the original version of hangman.")
     print("Quickfire:")
     print("In quickfire mode, you have 30 lives and must solve as many words as possible before losing your lives.")
-    print("Time trail:")
+    print("Time trial:")
     print("As the name suggests, in this mode you have infinite lives and must solve as many words as possible before the time runs out.")
     print("Easy:")
     print("An easier version of the original, with double the attempts. Wow!")
@@ -309,7 +309,7 @@ def menu():
     print("\nPlease enter the number of your choice below: ")
     print("1. Original")
     print("2. Quickfire")
-    print("3. Time trail")
+    print("3. Time trial")
     print("4. Easy")
     print("5. Help")
     print("6. Exit")
@@ -321,7 +321,7 @@ def menu():
     elif choice == "2":
         quickfire()
     elif choice == "3":
-        timetrail()
+        timetrial()
     elif choice == "4":
         original(True, 16)
     elif choice == "5":
